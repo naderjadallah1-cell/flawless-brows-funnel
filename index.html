@@ -836,119 +836,144 @@ src="https://www.facebook.com/tr?id=1721589715914524&ev=PageView&noscript=1"
     <div>جميع الحقوق محفوظة © 2026</div>
   </footer>
 
-  <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwJ_FNg_m1UZxeYR7-DxwZBl2qz21vrbuzf36Ekx7zK8y7NPYAGHe6sgQPdEtVP7SY/exec";
-    const merchantWhatsApp = "971557337103";
+<script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwJ_FNg_m1UZxeYR7-DxwZBl2qz21vrbuzf36Ekx7zK8y7NPYAGHe6sgQPdEtVP7SY/exec";
+  const merchantWhatsApp = "971557337103";
 
-    function updateCountdown() {
-      const now = new Date();
-      const end = new Date();
-      end.setHours(23, 59, 59, 999);
+  function updateCountdown() {
+    const now = new Date();
+    const end = new Date();
+    end.setHours(23, 59, 59, 999);
 
-      const diff = end - now;
-      if (diff <= 0) {
-        document.getElementById("countdown").textContent = "00:00:00";
-        return;
+    const diff = end - now;
+    if (diff <= 0) {
+      document.getElementById("countdown").textContent = "00:00:00";
+      return;
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").textContent =
+      String(hours).padStart(2, "0") + ":" +
+      String(minutes).padStart(2, "0") + ":" +
+      String(seconds).padStart(2, "0");
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  function showSuccess() {
+    const msg = document.getElementById("successMsg");
+    msg.style.display = "block";
+    setTimeout(() => {
+      msg.style.display = "none";
+    }, 5000);
+  }
+
+  function showError() {
+    const msg = document.getElementById("errorMsg");
+    msg.style.display = "block";
+    setTimeout(() => {
+      msg.style.display = "none";
+    }, 5000);
+  }
+
+  document.getElementById("orderForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    if (typeof fbq !== "undefined") {
+      fbq("track", "InitiateCheckout");
+    }
+
+    const submitBtn = document.getElementById("submitBtn");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "جارٍ إرسال الطلب...";
+
+    const pendingWindow = window.open("", "_blank");
+
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const city = document.getElementById("city").value.trim() || "غير محدد";
+    const address = document.getElementById("address").value.trim() || "غير محدد";
+    const notes = document.getElementById("notes").value.trim() || "لا يوجد";
+
+    const payload = {
+      name: name,
+      phone: phone,
+      city: city,
+      address: address,
+      notes: notes,
+      product: "Flawless Brows Hair Remover",
+      product_sku: "FBR-N-GF-ZAM",
+      price: "124.99 AED",
+      quantity: 1,
+      shipping_charges: 0,
+      discount: 0,
+      source: "Landing Page",
+      pageUrl: window.location.href
+    };
+
+    const waMessage =
+      "طلب جديد - Flawless Brows%0A" +
+      "------------------------%0A" +
+      "الاسم: " + encodeURIComponent(name) + "%0A" +
+      "رقم الهاتف: " + encodeURIComponent(phone) + "%0A" +
+      "المدينة: " + encodeURIComponent(city) + "%0A" +
+      "العنوان: " + encodeURIComponent(address) + "%0A" +
+      "ملاحظات: " + encodeURIComponent(notes) + "%0A" +
+      "المنتج: Flawless Brows Hair Remover%0A" +
+      "SKU: FBR-N-GF-ZAM%0A" +
+      "السعر: 124.99 AED";
+
+    try {
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (result.status !== "success") {
+        throw new Error(result.message || "فشل إرسال الطلب");
       }
 
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      document.getElementById("countdown").textContent =
-        String(hours).padStart(2, "0") + ":" +
-        String(minutes).padStart(2, "0") + ":" +
-        String(seconds).padStart(2, "0");
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    function showSuccess() {
-      const msg = document.getElementById("successMsg");
-      msg.style.display = "block";
-      setTimeout(() => msg.style.display = "none", 5000);
-    }
-
-    function showError() {
-      const msg = document.getElementById("errorMsg");
-      msg.style.display = "block";
-      setTimeout(() => msg.style.display = "none", 5000);
-    }
-
-    document.getElementById("orderForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
-
-      const submitBtn = document.getElementById("submitBtn");
-      submitBtn.disabled = true;
-      submitBtn.textContent = "جارٍ إرسال الطلب...";
-
-      const pendingWindow = window.open("", "_blank");
-
-      const name = document.getElementById("name").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const city = document.getElementById("city").value.trim() || "غير محدد";
-      const address = document.getElementById("address").value.trim() || "غير محدد";
-      const notes = document.getElementById("notes").value.trim() || "لا يوجد";
-
-      const payload = {
-        name: name,
-        phone: phone,
-        city: city,
-        address: address,
-        notes: notes,
-        product: "Flawless Brows Hair Remover",
-        product_sku: "FBR-N-GF-ZAM",
-        price: "124.99 AED",
-        quantity: 1,
-        shipping_charges: 0,
-        discount: 0,
-        source: "Landing Page",
-        pageUrl: window.location.href
-      };
-
-      const waMessage =
-        "طلب جديد - Flawless Brows%0A" +
-        "------------------------%0A" +
-        "الاسم: " + encodeURIComponent(name) + "%0A" +
-        "رقم الهاتف: " + encodeURIComponent(phone) + "%0A" +
-        "المدينة: " + encodeURIComponent(city) + "%0A" +
-        "العنوان: " + encodeURIComponent(address) + "%0A" +
-        "ملاحظات: " + encodeURIComponent(notes) + "%0A" +
-        "المنتج: Flawless Brows Hair Remover%0A" +
-        "SKU: FBR-N-GF-ZAM%0A" +
-        "السعر: 124.99 AED";
-
-      try {
-        const response = await fetch(scriptURL, {
-          method: "POST",
-          headers: {"Content-Type": "text/plain;charset=utf-8"},
-          body: JSON.stringify(payload)
+      if (typeof fbq !== "undefined") {
+        fbq("track", "Purchase", {
+          value: 124.99,
+          currency: "AED",
+          content_name: "Flawless Brows Hair Remover",
+          content_ids: ["FBR-N-GF-ZAM"],
+          content_type: "product",
+          num_items: 1
         });
-
-        const result = await response.json();
-        if (result.status !== "success") {
-          throw new Error(result.message || "فشل إرسال الطلب");
-        }
-
-        showSuccess();
-        document.getElementById("orderForm").reset();
-
-        const waUrl = "https://wa.me/" + merchantWhatsApp + "?text=" + waMessage;
-        if (pendingWindow) {
-          pendingWindow.location.href = waUrl;
-        } else {
-          window.open(waUrl, "_blank");
-        }
-
-      } catch (error) {
-        console.error(error);
-        if (pendingWindow) pendingWindow.close();
-        showError();
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "تأكيد الطلب الآن";
       }
-    });
-  </script>
+
+      showSuccess();
+      document.getElementById("orderForm").reset();
+
+      const waUrl = "https://wa.me/" + merchantWhatsApp + "?text=" + waMessage;
+      if (pendingWindow) {
+        pendingWindow.location.href = waUrl;
+      } else {
+        window.open(waUrl, "_blank");
+      }
+
+    } catch (error) {
+      console.error(error);
+
+      if (pendingWindow) {
+        pendingWindow.close();
+      }
+
+      showError();
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "تأكيد الطلب الآن";
+    }
+  });
+</script>
 </body>
 </html>
