@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
+  <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -18,12 +19,26 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
+
     fbq('init', '1721589715914524');
     fbq('track', 'PageView');
+
+    window.addEventListener('load', function () {
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'ViewContent', {
+          content_name: 'Flawless Brows',
+          content_ids: ['FBR-N-GF-ZAM'],
+          content_type: 'product',
+          value: 135,
+          currency: 'AED'
+        });
+      }
+    });
   </script>
   <noscript>
     <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1721589715914524&ev=PageView&noscript=1" />
   </noscript>
+  <!-- End Meta Pixel Code -->
 
   <meta name="description" content="Glowbeauty™ تقدّم لك Flawless Brows لترتيب الحواجب والوجه بسرعة من البيت — بدون ألم، بدون صالون، مع إضاءة LED، شحن سريع داخل الإمارات، والدفع عند الاستلام." />
 
@@ -709,6 +724,18 @@
       color: #4c3a41;
     }
 
+    .order-priority {
+      background: linear-gradient(135deg,#fff3cd,#fff8e7);
+      border: 1px solid #f3d38a;
+      color: #7a4d00;
+      padding: 14px 16px;
+      border-radius: 18px;
+      font-size: 14px;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -883,6 +910,30 @@
       font-weight: 800;
     }
 
+    .mini-popup {
+      position: fixed;
+      right: 14px;
+      bottom: 170px;
+      z-index: 1240;
+      background: rgba(45,32,38,.96);
+      color: #fff;
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      box-shadow: 0 14px 28px rgba(0,0,0,.18);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: .35s ease;
+      pointer-events: none;
+      max-width: 260px;
+    }
+
+    .mini-popup.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     footer {
       background: #2f2028;
       color: #fff;
@@ -951,6 +1002,12 @@
         max-width: none;
         min-width: auto;
       }
+      .mini-popup {
+        right: 10px;
+        left: 10px;
+        bottom: 165px;
+        max-width: none;
+      }
     }
 
     @media (max-width: 640px) {
@@ -1011,6 +1068,8 @@
       </div>
     </div>
   </div>
+
+  <div class="mini-popup" id="miniPopup">نورة من دبي طلبت الآن 🔥</div>
 
   <header class="header">
     <div class="header-inner container">
@@ -1074,6 +1133,7 @@
                 <div class="save">وفّري 64 درهم</div>
               </div>
               <div class="delivery">شحن سريع داخل الإمارات — الدفع عند الاستلام متاح — الكمية بالسعر الحالي محدودة</div>
+              <div class="mini-note">✔ 🔥 أكثر من 137 طلب اليوم — الكمية محدودة</div>
               <div class="mini-note">ملاحظة: قد يصل المنتج باللون الأبيض أو الذهبي/الوردي حسب التوفر وقت الشحن.</div>
 
               <div class="countdown-wrap">
@@ -1303,6 +1363,7 @@
                 <div class="save">احجزي السعر الحالي</div>
               </div>
               <div class="delivery">شحن سريع — دفع عند الاستلام — تسجيل مباشر في النظام</div>
+              <div class="mini-note">✔ 🔥 أكثر من 137 طلب اليوم — الكمية محدودة</div>
               <div class="mini-note">اللون يُشحن حسب التوفر: أبيض أو ذهبي/وردي.</div>
               <div class="countdown-wrap">
                 <div>
@@ -1376,7 +1437,9 @@
       <div class="container">
         <div class="card order-box">
           <h2 class="section-title">اطلبي الآن — قبل ما يرجع السعر الأصلي</h2>
-          <p class="section-sub">إذا كنتِ تريدين ترتيبًا أسرع وأنظف للحاجب من البيت، فهذا هو الوقت المناسب للاستفادة من السعر الحالي قبل انتهاء العرض.</p>
+          <p class="section-sub">احجزي طلبك خلال أقل من 30 ثانية فقط واستفيدي من السعر الحالي قبل انتهاء العرض.</p>
+
+          <div class="order-priority">🔥 يتم تنفيذ الطلبات حسب الأسبقية — الكمية محدودة اليوم</div>
 
           <div class="order-highlight">
             <div class="order-pill">💰 السعر اليوم: 135 درهم</div>
@@ -1405,7 +1468,7 @@
             </div>
 
             <div class="small-note" style="margin-top:14px;">لون المنتج يُشحن حسب التوفر وقت التجهيز، وقد يصلك باللون الأبيض أو الذهبي/الوردي.</div>
-            <button type="submit" class="submit-btn" id="submitBtn">اطلبي الآن بالدفع عند الاستلام</button>
+            <button type="submit" class="submit-btn" id="submitBtn">اطلبي الآن – 135 درهم 🔥</button>
           </form>
 
           <div class="status-msg status-success" id="successMsg">تم إرسال الطلب بنجاح.</div>
@@ -1465,6 +1528,7 @@
               <div class="new-price">135 درهم</div>
               <div class="save">الدفع عند الاستلام</div>
             </div>
+            <div class="mini-note">✔ 🔥 أكثر من 137 طلب اليوم — الكمية محدودة</div>
             <div class="mini-note">الكمية بالسعر الحالي محدودة وقد لا يبقى هذا السعر لاحقًا.</div>
             <div class="mini-note">ملاحظة: الشحن يتم حسب التوفر، وقد يصل المنتج باللون الأبيض أو الذهبي/الوردي.</div>
             <div class="cta-row">
@@ -1546,17 +1610,50 @@
       this.value = this.value.replace(/\D/g, "").slice(0, 10);
     });
 
+    let initiateCheckoutTracked = false;
+
+    function trackInitiateCheckout() {
+      if (initiateCheckoutTracked || typeof fbq === "undefined") return;
+
+      fbq("track", "InitiateCheckout", {
+        content_name: "Flawless Brows",
+        content_ids: ["FBR-N-GF-ZAM"],
+        content_type: "product",
+        value: 135,
+        currency: "AED",
+        num_items: 1
+      });
+
+      initiateCheckoutTracked = true;
+    }
+
     document.querySelectorAll('a[href="#order"]').forEach((link) => {
       link.addEventListener("click", function() {
-        if (typeof fbq !== "undefined") {
-          fbq("track", "ViewContent", {
-            content_name: "Flawless Brows",
-            content_ids: ["FBR-N-GF-ZAM"],
-            content_type: "product"
-          });
-        }
+        trackInitiateCheckout();
       });
     });
+
+    const orderSection = document.getElementById("order");
+    if (orderSection && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            trackInitiateCheckout();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.35 });
+
+      observer.observe(orderSection);
+    }
+
+    const orderForm = document.getElementById("orderForm");
+    if (orderForm) {
+      const formFields = orderForm.querySelectorAll("input, select, textarea");
+      formFields.forEach((field) => {
+        field.addEventListener("focus", trackInitiateCheckout, { once: true });
+      });
+    }
 
     const liveOrders = [
       { name: "نورة", city: "دبي", ago: "منذ دقيقة", emoji: "🔥" },
@@ -1567,12 +1664,24 @@
       { name: "مها", city: "الفجيرة", ago: "منذ 6 دقائق", emoji: "💖" }
     ];
 
+    const popupOrders = [
+      "نورة من دبي طلبت الآن 🔥",
+      "ريم من الشارقة طلبت الآن ✨",
+      "مها من أبوظبي طلبت الآن 💖",
+      "نورة من عجمان طلبت الآن 🔥",
+      "ريم من رأس الخيمة طلبت الآن ✨",
+      "مها من الفجيرة طلبت الآن 💖"
+    ];
+
     const toast = document.getElementById("liveOrderToast");
     const toastTitle = document.getElementById("liveOrderTitle");
     const toastSub = document.getElementById("liveOrderSub");
     const toastTime = document.getElementById("liveOrderTime");
     const toastIcon = document.querySelector(".live-order-icon");
+    const miniPopup = document.getElementById("miniPopup");
+
     let liveIndex = 0;
+    let popupIndex = 0;
 
     function showLiveOrder() {
       const item = liveOrders[liveIndex % liveOrders.length];
@@ -1590,15 +1699,28 @@
       liveIndex++;
     }
 
+    function showMiniPopup() {
+      if (!miniPopup) return;
+      miniPopup.textContent = popupOrders[popupIndex % popupOrders.length];
+      miniPopup.classList.add("show");
+
+      setTimeout(() => {
+        miniPopup.classList.remove("show");
+      }, 3200);
+
+      popupIndex++;
+    }
+
     setTimeout(showLiveOrder, 3000);
     setInterval(showLiveOrder, 10000);
+
+    setTimeout(showMiniPopup, 7000);
+    setInterval(showMiniPopup, 18000);
 
     document.getElementById("orderForm").addEventListener("submit", async function (e) {
       e.preventDefault();
 
-      if (typeof fbq !== "undefined") {
-        fbq("track", "InitiateCheckout");
-      }
+      trackInitiateCheckout();
 
       const submitBtn = document.getElementById("submitBtn");
       submitBtn.disabled = true;
@@ -1616,14 +1738,14 @@
       if (!englishNameRegex.test(name)) {
         alert("يرجى كتابة الاسم بالإنجليزية فقط");
         submitBtn.disabled = false;
-        submitBtn.textContent = "اطلبي الآن بالدفع عند الاستلام";
+        submitBtn.textContent = "اطلبي الآن – 135 درهم 🔥";
         return;
       }
 
       if (!phoneRegex.test(phone)) {
         alert("يرجى إدخال رقم هاتف صحيح: أرقام فقط، يبدأ بـ 05، ومكون من 10 أرقام");
         submitBtn.disabled = false;
-        submitBtn.textContent = "اطلبي الآن بالدفع عند الاستلام";
+        submitBtn.textContent = "اطلبي الآن – 135 درهم 🔥";
         return;
       }
 
@@ -1680,7 +1802,7 @@
         showError();
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = "اطلبي الآن بالدفع عند الاستلام";
+        submitBtn.textContent = "اطلبي الآن – 135 درهم 🔥";
       }
     });
   </script>
